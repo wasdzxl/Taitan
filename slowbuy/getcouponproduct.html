@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en" style="font-style: 100px">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0">
+
+    <link rel="stylesheet" href="./css/getcouponproduct.css">
+    <link rel="stylesheet" href="./css/base.css">
+    <script src="./js/jquery.js"></script>
+</head>
+<body style="position: relative">
+<!--遮罩层-->
+<div class="zc">
+    <div class="all" id='box'>
+        <div class="screen">
+            <ul>
+                <li><img class="imgs" src="./images/1.jpg" width="200" height="200"/></li>
+                <li><img class="imgs" src="./images/2.jpg" width="200" height="200"/></li>
+                <li><img class="imgs" src="./images/3.jpg" width="200" height="200"/></li>
+                <li><img class="imgs" src="./images/4.jpg" width="200" height="200"/></li>
+                <li><img class="imgs" src="./images/5.jpg" width="200" height="200"/></li>
+            </ul>
+            <ol></ol>
+        </div>
+        <div id="arr"><span id="left">&lt;</span><span id="right">&gt;</span></div>
+    </div>
+</div>
+<script>
+    $(document).ready(function(){
+        var lis=document.querySelectorAll('li');
+        var ul=document.getElementsByTagName('ul');
+        var screen =document.getElementsByClassName('screen');
+        var imgWid = $('.imgs').width();
+        var left = document.getElementById("left");
+        var right = document.getElementById("right");
+
+
+        var pic=0;
+        console.log(lis);
+        $("#left").on('click',function(){
+            pic--;
+            if(pic<0){pic =4}
+            console.log(pic);
+
+            var target=-imgWid*pic;
+            console.log(imgWid);
+            $(ul).css('transform','translateX('+ target+'px)');
+            $(ul).css('transition','all 1s');
+        });
+        $("#right").on('click',function(){
+            pic++;
+            if(pic==5){pic = 0;}
+            console.log(pic);
+            var target=-(imgWid*pic);
+            console.log(target);
+            $(ul).css('transform','translateX('+ target+'px)');
+            $(ul).css('transition','all 1s');
+        })
+    });
+</script>
+<script>
+    $(function () {
+        var n_id=window.location.search.replace('?couponId=','');
+        console.log(n_id);
+        $.ajax({
+            url:'http://127.0.0.1:3000/api/getcouponproduct?couponid='+n_id,
+            data: {},
+            type: 'get',
+            dataType: 'json',
+            success: function (data) {
+                console.log(data);
+                var arr = data.result;
+                console.log(arr);
+                for (var i = 0; i < arr.length; i++) {
+                    var str_tildes= '<div class="f_botleft">'+arr[i].couponProductImg+'</div>'+
+                                    '<div class="f_botright">'+arr[i].couponProductName+arr[i].couponProductPrice+
+                                     arr[i].couponProductTime+'</div>';
+                    console.log(str_tildes);
+                    $($('.f_bottom')[i]).html(str_tildes);
+                }
+
+            }
+        });
+    })
+</script>
+<div class="layout">
+
+    <!--头部-->
+    <header class="header">
+        <a href="coupon.html" class="fs">&lt;</a>
+        <h1 class="logoworld">肯德基优惠券</h1>
+        <a href="#" class="xiazai">App下载</a>
+    </header>
+    <!--商品主体盒子-->
+    <div class="djs">--点餐前出示手机中的优惠券,即可享受优惠--</div>
+    <main class="sb_product">
+        <section class="sb_product_box">
+            <div class="product_tit no_border">
+                <div class="f_bottom">
+                </div>
+                <div class="f_bottom">
+                </div>
+                <div class="f_bottom">
+                </div>
+                <div class="f_bottom">
+                </div>
+                <div class="f_bottom">
+                </div>
+                <div class="f_bottom">
+                </div>
+                <div class="f_bottom">
+                </div>
+                <div class="f_bottom">
+                </div>
+                <div class="f_bottom">
+                </div>
+            </div>
+        </section>
+    </main>
+    <div class="foot">
+        <div class="footword">
+            <a class="cleft" href="">登录</a><a class="midle" href="">注册</a><a class="cright" href="">返回顶部</a>
+            <p class="pword"><span>手机App下载</span>&nbsp;慢慢买手机版掌上比价平台</p>
+            <p class="href">m.manmanbuy.com</p>
+        </div>
+        <div>
+        </div>
+    </div>
+    </div>
+</div>
+</body>
+</html>

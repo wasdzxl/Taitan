@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en" style="font-style: 100px">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/getcategorybyid.css">
+    <link rel="stylesheet" href="./css/base.css">
+    <script src="./js/jquery.js"></script>
+    <!--<script src='./js/base.js'></script>-->
+</head>
+<body>
+<script>
+    $(function(){
+         var n_id=window.location.search.replace('?categoryid=','');
+           /*获取cut页面传过来的参数*/
+            $.ajax({
+                url:'http://127.0.0.1:3000/api/getproductlist?categoryid='+n_id,
+                data:{},
+                type:'get',
+                dataType:'json',
+                success:function(data){
+                    var arr=data.result;
+                    console.log(arr);
+                    for(var i=0;i<arr.length;i++){
+                        var str_img_description='<div style="background: red;" class="f_botleft">'+data.result[i].productImg+'</div>'+
+                                                '<div class="f_botright"><a href="getproduct.html?productId='+data.result[i].productId+'">'+data.result[i].productName+'<br/>'+data.result[i].productPrice+'<br/>'+data.result[i].productQuote+data.result[i].productCom+ '</a></div>';
+                        $($('.product_tit>.f_bottom')[i]).html(str_img_description);
+                    }
+                }
+            });
+    })
+</script>
+<!--页面内容-->
+<div class="layout">
+    <!--头部-->
+    <header class="header">
+        <h1 class="logoworld">慢慢买</h1>
+        <form action="#">
+            <input type="search" placeholder="请输入你想比价的商品">
+        </form>
+        <div class="sousuo">搜索</div>
+    </header>
+    <!--商品主体盒子-->
+    <main class="sb_product">
+        <section class="sb_product_box">
+
+            <div class="product_tit no_border">
+                <div class="f_top">
+                    <a href="index.html" class="sk_name">首页</a>&gt;<a href="category.html" class="sk_detail">全部分类</a>&gt;<a href="#" class="sk_tv">电视</a>&gt;
+                    <div class="sx">帅选</div>
+                </div>
+                <div class="f_bottom">
+                </div>
+                <div class="f_bottom">
+                </div>
+                <div class="f_bottom">
+                </div>
+                <div class="f_bottom">
+                </div>
+                <div class="f_bottom">
+                </div>
+                <div class="f_bottom">
+                </div>
+                <div class="f_bottom">
+                </div>
+                <div class="f_bottom">
+                </div>
+                <div class="f_bottom">
+                </div>
+            </div>
+        </section>
+    </main>
+    <!--分页-->
+    <div class="Up">上一页</div>
+    <select name="fenye" id="sx">
+        <option value="1">1</option>
+        <option value="1">2</option>
+        <option value="1">3</option>
+    </select>
+    <div class="down">下一页</div>
+    <div class="foot">
+        <div class="footword">
+            <a class="cleft" href="">登录</a><a class="midle" href="">注册</a><a class="cright" href="">返回顶部</a>
+            <p class="pword"><span>手机App下载</span>&nbsp;慢慢买手机版掌上比价平台</p>
+            <p class="href">m.manmanbuy.com</p>
+        </div>
+        <div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en" style="font-style: 100px">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0">
+
+    <link rel="stylesheet" href="./css/baicaijia.css">
+    <link rel="stylesheet" href="./css/base.css">
+    <script src="./js/jquery.js"></script>
+</head>
+<body>
+<script>
+    $(function () {
+        getlist();
+        getnav();
+        function getnav(){
+            $.ajax({
+                url:'http://127.0.0.1:3000/api/getbaicaijiatitle',
+                data:{},
+                type:'get',
+                dataType:'json',
+                success:function(data){
+                    var arr=data.result;
+                    console.log(arr);
+                    var li='';
+                    for(var i=0;i<arr.length;i++) {
+                        li += '<li>'+arr[i].title+'</li>' ;
+                        console.log(li);
+                    }
+                    $('#nav_ul').append(li);
+                }
+            })
+        }
+        function getlist(){
+            var titleid=window.location.search.replace('?indexmenuId=','');
+            console.log(titleid);
+            $.ajax({
+                url:'http://127.0.0.1:3000/api/getbaicaijiaproduct?titleid='+titleid,
+                data:{},
+                type:'get',
+                dataType:'json',
+                success:function(data){
+                    var arr = data.result;
+                    console.log(data);
+
+//                console.log(arr);
+                    for(var i=0;i<arr.length;i++) {
+                        var str_product='<div class="f_botleft">'+arr[i].productImg+'</div>'+
+                                '<div class="f_botright">'+'<p class="jianjie">'+arr[i].productName+'</p>'+
+                                '<span class="jiage">'+arr[i].productPrice+'</span>'+'<br/>'+
+                                '<span class="shengyuliang">'+arr[i].productImg+'</span>'+'<span class="lq">'+arr[i].productCouponRemain+'</span>'+
+                                '<div class="djlq">'+arr[i].productCoupon+'</div>'+'<div class="xdlj">'+arr[i].productHref+'</div>'+
+                                '</div>'
+                    }
+                    $($('.f_bottom')).append(str_product);
+                }
+            });
+        }
+    })
+</script>
+<!--页面内容-->
+<div class="layout">
+    <!--头部-->
+    <header class="header">
+        <a href="index.html" class="fs">&lt;</a>
+        <h1 class="logoworld">白菜价-淘宝内部券</h1>
+        <a href="#" class="xiazai">App下载</a>
+    </header>
+    <!--滚动导航-->
+    <div class="nav_div">
+        <ul id="nav_ul" style="border: 1px solid red">
+        </ul>
+    </div>
+    <!--商品主体盒子-->
+    <main class="sb_product">
+        <section class="sb_product_box">
+            <div class="product_tit no_border">
+        <div class="f_bottom">
+        </div>
+        <div class="f_bottom">
+        </div>
+        <div class="f_bottom">
+        </div>
+        <div class="f_bottom">
+        </div>
+            </div>
+        </section>
+    </main>
+    <div class="foot">
+        <div class="footword">
+            <a class="cleft" href="">登录</a><a class="midle" href="">注册</a><a class="cright" href="">返回顶部</a>
+            <p class="pword"><span>手机App下载</span>&nbsp;慢慢买手机版掌上比价平台</p>
+            <p class="href">m.manmanbuy.com</p>
+        </div>
+        <div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

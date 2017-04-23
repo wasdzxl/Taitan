@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en" style="font-style: 100px">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0">
+	<link rel="stylesheet" href="./css/category.css">
+	<link rel="stylesheet" href="./css/base.css">
+	<script src="./js/jquery.js"></script>
+</head>
+<body>
+<script>
+	$(function() {
+		get_div();
+        var n_id;
+		/*分类大导航*/
+		function get_div() {
+			$.ajax({
+				url: 'http://127.0.0.1:3000/api/getcategorytitle',
+				data: {},
+				type: 'get',
+				dataType: 'json',
+				success: function (data) {
+					var arr = data.result;
+					console.log(arr);
+					for (var i = 0; i < arr.length; i++) {
+						var str_tit = '<div id="btn" class="dworld" titleId='+arr [i].titleId+'>' + data.result[i].title + '</div>';
+						$($('.cut>div')[i]).html(str_tit);
+					}
+                    getul();
+				}
+			});
+		}
+		/*点击大导航出现下面的分类*/
+		function getul() {
+            $('.dworld').click(function () {
+//                alert(111);
+                console.log(this);
+                n_id = $(this).attr('titleId')
+                var that = $(this);
+				$.ajax({
+					url: 'http://127.0.0.1:3000/api/getcategory?titleid='+n_id,
+					data: {},
+					type: 'get',
+					dataType: 'json',
+					success: function (data) {
+                        console.log(data);
+                        var arr = data.result;
+                        console.log(arr);
+                        var a=!that.find('ul')[0];
+                        that.children().remove();
+                        if(a){
+                            var ul = $('<ul class="cutul"></ul>');
+                            var li = '';
+                            for (var i = 0; i < arr.length; i++) {
+                                li += '<li><a href="getcategorybyid.html?categoryid='+data.result[i].categoryId+'"><p>' + data.result[i].category + '</p></a></li>';
+                            }
+                            ul.append(li);
+                            that.append(ul);
+                        }
+                    }
+				});
+			});
+		}
+	})
+
+</script>
+<!--页面内容-->
+<div class="layout">
+	<!--头部-->
+		<header class="header">
+			<h1 class="logoworld">慢慢买</h1>
+			<form action="#">
+				<input type="search" placeholder="请输入你想比价的商品">
+			</form>
+		<div class="sousuo">搜索</div>
+		</header>
+	<!--商品分类盒子-->
+	<main class="cut">
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+	</main>
+	<div class="foot">
+		<div class="footword">
+		<a class="cleft" href="">登录</a><a class="midle" href="">注册</a><a class="cright" href="">返回顶部</a>
+		<p class="pword"><span>手机App下载</span>&nbsp;慢慢买手机版掌上比价平台</p>
+		<p class="href">m.manmanbuy.com</p>
+		</div>
+	<div>
+</div>
+</body>
+</html>

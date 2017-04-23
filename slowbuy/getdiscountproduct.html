@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" style="font-style: 100px">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/getdiscountproduct.css">
+    <link rel="stylesheet" href="./css/base.css">
+    <script src="./js/jquery.js"></script>
+</head>
+<body>
+<!--页面内容-->
+<script>
+    $(function(){
+        var n_id=Number(window.location.search.replace('?productid=',''));
+        console.log(n_id);
+        $.ajax({
+            url:'http://127.0.0.1:3000/api/getdiscountproduct?productid='+n_id,
+            data:{},
+            type:'get',
+            dataType:'json',
+            success:function(data){
+                console.log(data);
+                var arr=data.result[0];
+                console.log(arr);
+                    var str_tjp='<div class="f_bottom">'+arr.productName+arr.productFrom+arr.productTime+arr.productTips+
+                            '<div class="productInfo">'+arr.productImg+arr.productInfo+
+                            '</div>'+arr.productImg+
+                            '<div class="productCity">'+arr.productCity+'</div>'+
+                            '<div class="sm">'+arr.productImg+' </div>'+
+                             '<div class="f_pjtworld">'+arr.productComment+'</div>';
+
+                console.log(arr.productName);
+                $('.product_tit').append(str_tjp);
+            }
+        })
+    })
+</script>
+<div class="layout">
+    <!--头部-->
+    <header class="header">
+        <a href="inlanddiscount.html" class="fanhui">&lt;</a><span class="logoworld">国内折扣</span><a class="xiazai">App下载</a>
+    </header>
+    <!--商品主体盒子-->
+    <main class="sb_product">
+        <section class="sb_product_box">
+            <div class="product_tit no_border">
+                <div class="qwgm">前往购买</div>
+            </div>
+        </section>
+    </main>
+    <div class="foot">
+        <div class="footword">
+            <a class="cleft" href="">登录</a><a class="midle" href="">注册</a><a class="cright" href="">返回顶部</a>
+            <p class="pword"><span>手机App下载</span>&nbsp;慢慢买手机版掌上比价平台</p>
+            <p class="href">m.manmanbuy.com</p>
+        </div>
+        <div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

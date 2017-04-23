@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en" style="font-style: 100px">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0">
+
+	<link rel="stylesheet" href="./css/index.css">
+	<link rel="stylesheet" href="./css/base.css">
+	<script src="./js/jquery.js"></script>
+</head>
+<body>
+<script>
+	$(function () {
+		$.ajax({
+			url:'http://127.0.0.1:3000/api/getindexmenu',
+			data:{},
+			type:'get',
+			dataType:'json',
+			success:function(data){
+				var arr = data.result;
+				console.log(arr);
+				var ul = $('<ul class="clearfix"></ul>');
+				var li='';
+				for(var i=0;i<arr.length;i++){
+					var titlehref=data.result[i].titlehref;
+					var indexmenuId=data.result[i].indexmenuId
+					console.log(titlehref);
+						li+='<li><a href="'+titlehref+'?indexmenuId='+data.result[i].indexmenuId+'">'+data.result[i].img+data.result[i].name+'</a></li>';
+				}
+				ul.append(li);
+				$($('.sb_nav')).append(ul);
+				$($('.sb_nav ul li')[7]).nextAll().hide().end().click(function () {
+					$(this).nextAll().toggle(1000);
+				})
+
+			}
+
+		});
+
+	})
+</script>
+<!--页面内容-->
+<div class="layout">
+	<!--头部-->
+		<header class="header">
+			<h1 class="logoworld">慢慢买</h1>
+			<form action="#">
+				<input type="search" placeholder="请输入你想比价的商品">
+			</form>
+		<div class="sousuo">搜索</div>
+		</header>
+	<!--商品主题盒子-->
+	<nav class="sb_nav">
+	</nav>
+	<!--商品主体盒子-->
+	<main class="sb_product">
+		<section class="sb_product_box">
+			<div class="product_tit no_border">
+				<div class="f_left">
+					<span class="sk_name">超值折扣推荐</span>
+				</div>
+			</div>
+			<div class="product_con">
+				<div class="divleft"></div>
+				<div class="divright"></div>
+			</div>
+		</section>
+	</main>
+	<div class="goods">
+		<h1 class="goodsworld">品牌排行</h1>
+	</div>
+	<div class="foot">
+		<div class="footword">
+			<a class="cleft" href="">登录</a><a class="midle" href="">注册</a><a class="cright" href="">返回顶部</a>
+			<p class="pword"><span>手机App下载</span>&nbsp;慢慢买手机版掌上比价平台</p>
+			<p class="href">m.manmanbuy.com</p>
+		</div>
+	<div>
+</div>
+		</div>
+	</div>
+</body>
+</html>

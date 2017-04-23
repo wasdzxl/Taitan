@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" style="font-style: 100px">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/inlanddiscount.css">
+    <link rel="stylesheet" href="./css/base.css">
+    <script src="./js/jquery.js"></script>
+</head>
+<body>
+<script>
+    $(function(){
+        var that = $('.f_bottom');
+        $.ajax({
+            url:'http://127.0.0.1:3000/api/getinlanddiscount',
+            data:{},
+            type:'get',
+            dataType:'json',
+            success:function(data){
+                var arr = data.result;
+                console.log(arr);
+                var ul=$('<ul class="cf_bottom"></ul>');
+                var li='';
+                console.log(data.result)
+                for(var i=0;i<arr.length;i++){
+                    console.log(data.result[i].productId);
+                    li += '<li><a href="getdiscountproduct.html?productid='+data.result[i].productId+'">'+data.result[i].productImg+data.result[i].productName+data.result[i].productPrice+data.result[i].productFrom+data.result[i].productTime+'</a></li>';
+                }
+                ul.append(li);
+                that.append(ul);
+            }
+        })
+    })
+</script>
+<!--页面内容-->
+<div class="layout">
+    <!--头部-->
+    <header class="header">
+        <h1 class="logoworld"><a href="index.html" class="fanhui">&lt;</a>国内折扣<i class="xiazai">APP下载</i></h1>
+    </header>
+    <!--商品主体盒子-->
+    <main class="sb_product">
+        <section class="sb_product_box">
+            <div class="product_tit no_border">
+                <div class="f_bottom">
+                    <!--<ul class="cf_bottom">-->
+                        <!--<li><a href=""><img src="./images/20170414131518879.jpg"  alt=""/><p>西域和田红枣250g*2</p><div>19.8元(5件99元)</div><span>京东商城</span>|<span>10-22&nbsp;13:28</span></a></li>-->
+                        <!--<li><a href=""><img src="./images/20170414150601074.jpg"  alt=""/><p>Apple金色移动4G</p><div>4088.00</div><span>苏宁易购</span>|<span>10-22 13:29</span></a></li>-->
+                        <!--<li><a href=""><img src="./images/20170414152308882.jpg" alt=""/><p>雀氏 铂金装婴儿纸尿裤<br/>M10+手口护理巾60抽</p><div>9元包邮</div><span>天猫商城</span>|<span>10-22 13:29</span></a></li>-->
+                        <!--<li><a href=""><img src="./images/20170414162500722.jpg"  alt=""/><p>opal 澳宝 沐浴露套装(经典滋润750ml*2瓶+薰)</p><div>33.9元</div><span>淘宝购物</span>|<span>10-22 14:15</span></a></li>-->
+                        <!--<li><a href=""><img src="./images/201704001641251484.jpg"  alt=""/><p>小米纯平彩电</p><div>1200元包邮</div><span>苏宁易购</span>|<span>10-22 13:15</span></a></li>-->
+                        <!--<li><a href=""><img src="./images/2017040016040082984.jpg"  alt=""/><p>特制婴儿车</p><div>150元包邮</div><span>京东商城</span>|<span>10-22 14:00</span></a></li>-->
+                        <!--<li><a href=""><img src="./images/2017040016183854708.jpg"  alt=""/><p>西门子洗衣机嵌入</p><div>4649元(4699-50)</div><span>国美在线</span>|<span></span></a></li>-->
+                        <!--<li><a href=""><img src="./images/2017040016421793051.jpg"  alt=""/><p>善味阁 牛筋 100g</p><div>28.8元,可多重优惠</div><span>天猫商城</span>|<span>10-22 13:19</span></a></li>-->
+                        <!--<li><a href=""><img src="./images/2017040016422035357.jpg"  alt=""/><p>双11预售:KISS YOU H32 负离子牙刷2支+替</p><div>74元包邮(10元定金)</div><span>天猫国际</span>|<span>10-22 13:19</span></a></li>-->
+                        <!--<li><a href=""><img src="./images/2017040017000768273.jpg"  alt=""/><p>康佳取暖器 小太阳加家用电暖器</p><div>28.8元包邮(45.8-15)</div><span>天猫商城</span>|<span>10-22 13:02</span></a></li>-->
+                    <!--</ul>-->
+                </div>
+            </div>
+        </section>
+    </main>
+    <div class="foot">
+        <div class="footword">
+            <a class="cleft" href="">登录</a><a class="midle" href="">注册</a><a class="cright" href="">返回顶部</a>
+            <p class="pword"><span>手机App下载</span>&nbsp;慢慢买手机版掌上比价平台</p>
+            <p class="href">m.manmanbuy.com</p>
+        </div>
+        <div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

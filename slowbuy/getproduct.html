@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en" style="font-style: 100px">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/getproduct.css">
+    <link rel="stylesheet" href="./css/base.css">
+    <script src="./js/jquery.js"></script>
+</head>
+<body>
+<script>
+    $(function(){
+        var n_id=window.location.search.replace('?productId','');
+        getup();
+        getdown();
+        function getup(){
+            $.ajax({
+                url:'http://127.0.0.1:3000/api/getproduct?productid'+n_id,
+                data:{},
+                type:'get',
+                dataType:'json',
+                success:function(data){
+                    console.log(data);
+                    var arr = data.result[0];
+                    console.log(arr);
+//                for(var i=0;i<arr.length;i++){
+                    var str_detitle='<div class="f_bottop">'+arr.productName+'</div>'+arr.productImg+arr.bjShop;
+
+//                }
+                    $('.f_bottom').html(str_detitle);
+                }
+            });
+        }
+        function getdown() {
+            $.ajax({
+                url: 'http://127.0.0.1:3000/api/getproductcom?productid' + n_id,
+                data: {},
+                type: 'get',
+                dataType: 'json',
+                success: function (data) {
+                    console.log(data);
+                    var arr = data.result[0];
+                    console.log(arr);
+                    var str_tpl = '<div class="pjnr"><span class="comName">'+ arr.comName+'</span>'+ '<span class="ctf">'+ arr.comTime+ arr.comFrom +'</span>'+'</div>' +
+                            '<p class="nr">' + arr.comContent + '</p>';
+                    $('.wypj').append(str_tpl);
+                }
+            });
+        }
+    })
+</script>
+<!--页面内容-->
+<div class="layout">
+
+    <!--头部-->
+    <header class="header">
+        <h1 class="logoworld">慢慢买</h1>
+        <form action="#">
+            <input type="search" placeholder="请输入你想比价的商品">
+        </form>
+        <div class="sousuo">搜索</div>
+    </header>
+    <!--商品主体盒子-->
+    <main class="sb_product">
+        <section class="sb_product_box">
+            <div class="product_tit no_border">
+                <div class="f_top">
+                    <a href="index.html" class="sk_name">首页</a>&gt;<a href="getcategorybyid.html" class="sk_detail">电视</a>&gt;<span class="sk_tv">乐视TV(Letv)S50</span>&gt;
+                    <div class="sx">帅选</div>
+                </div>
+                <div class="f_bottom">
+
+                    <div class="collect">收藏</div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <div class="bcp">
+        <a class="bjgm">比价购买</a><a class="cpcs">产品参数</a><a class="pj">评价(2323)</a>
+    </div>
+
+    <p class="pdworld">
+        *实际价格以各网站列出的实时售价为准,我们提供的价格可能有<br/>数小时至数日的延迟。
+    </p>
+    <div class="wypj">网友评价</div>
+
+    <div class="ckgd">查看更多评价</div>
+    <div class="foot">
+        <div class="footword">
+            <a class="cleft" href="">登录</a><a class="midle" href="">注册</a><a class="cright" href="">返回顶部</a>
+            <p class="pword"><span>手机App下载</span>&nbsp;慢慢买手机版掌上比价平台</p>
+            <p class="href">m.manmanbuy.com</p>
+        </div>
+        <div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
